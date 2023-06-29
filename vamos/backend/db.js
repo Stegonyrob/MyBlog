@@ -1,12 +1,14 @@
-const mysql = require("mysql2/promise");
+const Sequelize = require("sequelize");
+const path = "mysql://root@localhost:3306/soy_linux";
+const sequelize = new Sequelize(path, { operatorAliases: false });
 
-const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "soy_linux",
-  waitForConnections: true,
-  connectionLimit: 10,
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Conectado: Soy linux base de datos");
+  })
+  .catch((err) => {
+    console.error("Error de conexión:", err);
+  });
 
-module.exports = pool;
+module.exports = sequelize;
