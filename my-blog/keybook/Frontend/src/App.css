@@ -31,3 +31,14 @@ body {
   height: 180px;
   width: 250px;
 }
+.custom-navbar {
+  background-color: black;
+}
+
+.custom-navbar .nav-link {
+  color: red;
+}
+
+.custom-navbar .active {
+  text-decoration: underline red;
+}

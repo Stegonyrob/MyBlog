@@ -1,14 +1,13 @@
 import React from "react";
 //import Home from "../Components/home/Home";
-import Footer from "../Components/footer/Footer";
-import NavBar from "../Components/navbar/NavBar";
+import Footer from "../Components/Footer.js";
 
+import CustomNavbar from "../Components/NavBar.js";
 export default function HomeView() {
   return (
-    <>
-      <NavBar />
-      {/* //<Home /> */}
+    <div>
+      <CustomNavbar />
       <Footer />
-    </>
+    </div>
   );
 }
