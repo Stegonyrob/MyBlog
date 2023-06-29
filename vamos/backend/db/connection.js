@@ -5,7 +5,7 @@ const sequelize = new Sequelize(path, { operatorAliases: false });
 sequelize
   .authenticate()
   .then(() => {
-    console.log("Conectado: Soy linux base de datos");
+    console.log("Conectado: soy_linux base de datos");
   })
   .catch((err) => {
     console.error("Error de conexión:", err);

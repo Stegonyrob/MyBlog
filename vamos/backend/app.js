@@ -7,12 +7,13 @@ var logger = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-var indexRouter = require("./routes/index");
+// var indexRouter = require("./routes/index");
+// var usersRouter = require("./routes/users");
+var postsRouter = require("./routes/posts");
+// var followRouter = require("./routes/follow");
+// var feedbackRouter = require("./routes/feedback");
 
-var postsRouter = require("./routes/post");
-
-// Importa el archivo de configuración de la base de datos
-var sequelize = require("./db.js");
+require("./db/connection.js");
 
 var app = express();
 
@@ -57,9 +58,11 @@ app.use(function (req, res, next) {
 });
 
 //Routes config
-app.use("/", indexRouter);
-
+// app.use("/", indexRouter);
+// app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
+//app.use("/follow", followRouter);
+//app.use("/feedback", feedbackRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
