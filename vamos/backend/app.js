@@ -7,11 +7,11 @@ var logger = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-// var indexRouter = require("./routes/index");
-// var usersRouter = require("./routes/users");
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
 var postsRouter = require("./routes/posts");
-// var followRouter = require("./routes/follow");
-// var feedbackRouter = require("./routes/feedback");
+var followRouter = require("./routes/follow");
+var feedbackRouter = require("./routes/feedback");
 
 require("./db/connection.js");
 
@@ -58,11 +58,11 @@ app.use(function (req, res, next) {
 });
 
 //Routes config
-// app.use("/", indexRouter);
-// app.use("/users", usersRouter);
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
-//app.use("/follow", followRouter);
-//app.use("/feedback", feedbackRouter);
+app.use("/follow", followRouter);
+app.use("/feedback", feedbackRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
