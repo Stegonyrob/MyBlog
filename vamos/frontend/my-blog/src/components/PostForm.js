@@ -7,19 +7,18 @@ function PostForm({ onCreatePost }) {
   const [postContent, setPostContent] = useState("");
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", postContent);
-    formData.append("image", image);
+    const postData = {
+      title: title,
+      content: postContent,
+    };
 
     try {
       const response = await axios.post(
         "http://localhost:3000/posts/send",
-        formData
+        postData
       );
       console.log(response.data);
       onCreatePost(response.data);

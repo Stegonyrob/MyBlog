@@ -20,7 +20,8 @@ router.get("/why", async (req, res) => {
 //POST posts
 router.post("/send", async function (req, res) {
   try {
-    const { title, content, image } = req.body;
+    const { title, content } = req.body;
+    const image = req.file ? req.file.filename : null; // Obtener el nombre de archivo guardado por Multer
     const newPost = await sequelize.query(
       `INSERT INTO posts (title, content, image) VALUES (?, ?, ?)`,
       {
@@ -38,5 +39,4 @@ router.post("/send", async function (req, res) {
     res.status(400).send({ error: e.message });
   }
 });
-
 module.exports = router;
