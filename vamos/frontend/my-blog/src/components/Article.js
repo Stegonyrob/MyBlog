@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import ReactPaginate from "react-paginate";
 
-const Article = ({ cards }) => {
-  console.log(cards);
+const Article = () => {
+  const [cards, setCards] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const pageSize = 6;
+  const pageSize = 4;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/posts/why");
+        setCards(response.data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchData();
+  }, []);
 
   if (!Array.isArray(cards) || cards === undefined) {
     return null;
@@ -43,4 +56,5 @@ const Article = ({ cards }) => {
     </article>
   );
 };
+
 export default Article;

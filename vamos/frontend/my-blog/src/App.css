@@ -63,3 +63,7 @@ body {
   text-align: center;
   
 }
+.card-group{
+  justify-content: space-around;
+  
+}
