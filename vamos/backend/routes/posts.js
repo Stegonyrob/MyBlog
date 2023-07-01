@@ -18,20 +18,20 @@ router.get("/why", async (req, res) => {
 });
 
 //POST posts
-router.post("/", async function (req, res) {
+router.post("/send", async function (req, res) {
   try {
-    const { post_id_user, post_content } = req.body;
+    const { title, content, image } = req.body;
     const newPost = await sequelize.query(
-      `INSERT INTO post (post_id_user, post_content) VALUES (?, ?)`,
+      `INSERT INTO posts (title, content, image) VALUES (?, ?, ?)`,
       {
         type: sequelize.QueryTypes.INSERT,
-        replacements: [post_id_user, post_content],
+        replacements: [title, content, image],
       }
     );
     res.status(200).json({
-      post_id: newPost[0],
-      post_id_user,
-      post_content,
+      title,
+      content,
+      image,
     });
   } catch (e) {
     console.error(e);

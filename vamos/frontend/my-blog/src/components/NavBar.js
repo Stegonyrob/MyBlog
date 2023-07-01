@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../img/logo.png";
 import { NavLink } from "react-router-dom";
 
-const CustomNavbar = () => {
+const CustomNavbar = ({ onAddClick }) => {
   const location = useLocation();
 
   const isActive = (pathname) => {
@@ -38,7 +38,12 @@ const CustomNavbar = () => {
           <Nav.Link as={Link} to="/gallery" className={isActive("/gallery")}>
             Galeria
           </Nav.Link>
-          <Nav.Link as={Link} to="/add" className={isActive("/add")}>
+          <Nav.Link
+            as={Link}
+            to="/add"
+            className={isActive("/add")}
+            onClick={onAddClick}
+          >
             Añadir
           </Nav.Link>
           <Nav.Link
