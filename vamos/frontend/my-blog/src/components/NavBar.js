@@ -21,11 +21,11 @@ const CustomNavbar = ({ onAddClick }) => {
         <Nav className="mr-auto">
           <Nav.Link
             as={NavLink}
-            to="/about"
+            to="/"
             isActive={(match, location) => {
               if (match) {
                 return true;
-              } else if (location.pathname === "/aboutme") {
+              } else if (location.pathname === "/") {
                 return true;
               } else {
                 return false;
@@ -35,13 +35,13 @@ const CustomNavbar = ({ onAddClick }) => {
             Sobre mi
           </Nav.Link>
 
-          <Nav.Link as={Link} to="/gallery" className={isActive("/gallery")}>
-            Galeria
+          <Nav.Link as={Link} to="/home" className={isActive("/home")}>
+            Publicaciones
           </Nav.Link>
           <Nav.Link
             as={Link}
-            to="/add"
-            className={isActive("/add")}
+            to="/newarticle"
+            className={isActive("/newarticle")}
             onClick={onAddClick}
           >
             Añadir

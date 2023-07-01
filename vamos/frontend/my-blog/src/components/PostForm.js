@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 
-function PostForm({ onCreatePost }) {
+function PostForm({ onCreatePost, history }) {
   const [title, setTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [image, setImage] = useState(null);
-  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -25,7 +26,7 @@ function PostForm({ onCreatePost }) {
       setTitle("");
       setPostContent("");
       setImage(null);
-      navigate("/");
+      history.push("/home");
     } catch (error) {
       console.error(error);
     }
@@ -34,7 +35,6 @@ function PostForm({ onCreatePost }) {
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
   };
-
   return (
     <div className="new-post-card default-card">
       <h3>

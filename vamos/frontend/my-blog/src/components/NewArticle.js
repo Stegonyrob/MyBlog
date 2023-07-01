@@ -13,9 +13,7 @@ function NewPost({ loggedUserId }) {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetch(
-      `http://localhost:3000/posts?page=${page}&limit=5&not_friends_with=${loggedUserId}`
-    )
+    fetch(`http://localhost:3000/posts/why`)
       .then((response) => response.json())
       .then((data) => setPosts(data));
   }, [loggedUserId, page]);
@@ -24,7 +22,7 @@ function NewPost({ loggedUserId }) {
     event.preventDefault();
     const postContent = event.target.elements.post.value;
     const postUserId = loggedUserId;
-    fetch("http://localhost:3000/posts", {
+    fetch("http://localhost:3000/posts/why", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

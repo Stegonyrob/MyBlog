@@ -39,4 +39,17 @@ router.post("/send", async function (req, res) {
     res.status(400).send({ error: e.message });
   }
 });
+router.get("/abaut", async (req, res) => {
+  try {
+    const posts = await sequelize.query(
+      `SELECT *
+      FROM abaut`,
+      { type: sequelize.QueryTypes.SELECT }
+    );
+    res.send(posts);
+  } catch (e) {
+    console.error(e);
+    res.status(400).send({ error: e.message });
+  }
+});
 module.exports = router;

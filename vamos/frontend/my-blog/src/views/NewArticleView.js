@@ -1,15 +1,13 @@
 import React from "react";
-//import Home from "../Components/home/Home";
 import Footer from "../components/Footer";
-import Article from "../components/Article";
 import CustomNavbar from "../components/NavBar";
+import PostForm from "../components/PostForm";
 
 export default function HomeView() {
   return (
     <div>
       <CustomNavbar />
-      <Article cards={""} />
-
+      <PostForm />
       <Footer />
     </div>
   );

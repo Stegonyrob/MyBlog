@@ -1,14 +1,32 @@
-import HomeView from "../src/views/HomeView";
-import "./App.css";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import { BrowserRouter as Router } from "react-router-dom";
-
+import "./App.css";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Router,
+  Navigate,
+} from "react-router-dom";
+import AboutMeView from "./views/AboutMeView";
+import HomeView from "./views/HomeView";
+import NewArticleView from "./views/NewArticleView";
+import SuggestedPagesView from "./views/SuggestPagesView";
 function App() {
   return (
-    <Router>
-      <HomeView />
-    </Router>
+    <>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<AboutMeView />} />
+            <Route path="/newarticle" element={<NewArticleView />} />
+            <Route path="/home" element={<HomeView />} />
+            <Route path="/suggested-pages" element={<SuggestedPagesView />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </>
   );
 }
+
 export default App;

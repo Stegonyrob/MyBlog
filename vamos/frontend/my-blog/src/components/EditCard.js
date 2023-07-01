@@ -21,7 +21,7 @@ const EditableCard = ({
 
   const handleSaveClick = () => {
     axios
-      .put(`/posts/${id}`, {
+      .put(`/posts/why/${id}`, {
         title: updatedTitle,
         content: updatedContent,
       })

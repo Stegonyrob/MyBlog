@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import ReactPaginate from "react-paginate";
-
+import { Link } from "react-router-dom";
 const Article = () => {
   const [cards, setCards] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -40,7 +40,9 @@ const Article = () => {
             <Card
               key={index}
               imageSrc={card.imageSrc}
-              title={card.title}
+              title={
+                <Link to={`/ruta-de-edicion/${card.id}`}>{card.title}</Link>
+              }
               content={card.content}
               createdAt={card.createdAt}
             />

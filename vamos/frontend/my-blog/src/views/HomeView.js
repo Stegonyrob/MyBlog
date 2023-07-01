@@ -20,17 +20,11 @@ export default function HomeView() {
     navigate("/");
   };
 
-  // Ordena la lista de publicaciones por fecha de creación en orden descendente
-  const sortedPosts = [...posts].sort((a, b) => b.createdAt - a.createdAt);
-
   return (
     <div>
       <CustomNavbar onAddClick={handleAddClick} />
-      {showForm ? (
-        <PostForm onCreatePost={handleCreatePost} />
-      ) : (
-        <Article cards={sortedPosts} />
-      )}
+      <Article cards={""} />
+
       <Footer />
     </div>
   );
