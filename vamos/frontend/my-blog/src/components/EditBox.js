@@ -1,110 +1,109 @@
-import React, { useState } from "react";
-import SubmitButton from "./SubmitButton";
-import {
-  faPenNib,
-  faPaperPlane,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../App.css";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import App from "../App.css";
+const EditBox = ({ card }) => {
+  const { id } = card;
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [imageSrc, setImageSrc] = useState("");
+  const navigate = useNavigate();
 
-function EditBox({ onReply, id, title, content }) {
-  const [replyTitle, setReplyTitle] = useState(title);
-  const [replyContent, setReplyContent] = useState(content);
-  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    setTitle(card.title);
+    setContent(card.content);
+    setImageSrc(card.imageSrc);
+  }, [card]);
 
-  function handleTitleChange(event) {
-    setReplyTitle(event.target.value || title);
-  }
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
 
-  function handleContentChange(event) {
-    setReplyContent(event.target.value || content);
-  }
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+  };
 
-  function handleReplyClick() {
-    setIsOpen(true);
-  }
+  const handleImageSrcChange = (e) => {
+    setImageSrc(e.target.value);
+  };
 
-  function handleCloseClick() {
-    setIsOpen(false);
-  }
+  const handleDeleteClick = async () => {
+    try {
+      await axios.delete(`http://localhost:3000/posts/why/${id}`);
+      navigate("/");
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    axios
-      .put(`http://localhost:3000/posts/change/${id}`, {
-        title: replyTitle,
-        content: replyContent,
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
+  const handleSaveClick = async () => {
+    try {
+      await axios.put(`http://localhost:3000/posts/why/${id}`, {
+        title,
+        content,
+        imageSrc,
       });
-
-    setIsOpen(false);
-  }
+      navigate(`/card/${id}`);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
-    <div>
-      <div className="btn-post-btn-font">
-        <SubmitButton
-          type="button"
-          onClick={handleReplyClick}
-          content={<FontAwesomeIcon icon={faPenNib} />}
-          id="new-post-image"
-          title="open"
-        />
-
-        {isOpen && (
-          <div className="reply">
-            <div className="card edit-box">
-              <form onSubmit={handleSubmit}>
-                <div className="card-body">
-                  <div className="form-group">
-                    <textarea
-                      rows="2"
-                      cols="70"
-                      value={replyTitle}
-                      onChange={handleTitleChange}
-                      className="edit-box-textarea"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <textarea
-                      rows="4"
-                      cols="70"
-                      value={replyContent}
-                      onChange={handleContentChange}
-                      className="edit-box-textarea"
-                    />
-                  </div>
-                </div>
-                <div className="card-footer">
-                  <SubmitButton
-                    type="submit"
-                    content={<FontAwesomeIcon icon={faPaperPlane} />}
-                    id="new-post-submit"
-                    title="submit"
-                  />
-                  <SubmitButton
-                    type="button"
-                    onClick={handleCloseClick}
-                    content={<FontAwesomeIcon icon={faTimes} />}
-                    id="new-post-close"
-                    title="close"
-                  />
-                </div>
-              </form>
+    <div className="container">
+      <div className="row">
+        <div className="col-12 col-md-6 offset-md-3">
+          <h1>Edición de los Post</h1>
+          <form>
+            <div className="form-group">
+              <label htmlFor="title">Títulos</label>
+              <input
+                type="text"
+                className="form-control"
+                id="title"
+                value={title}
+                onChange={handleTitleChange}
+              />
             </div>
-          </div>
-        )}
+            <div className="form-group">
+              <label htmlFor="content">Contenido</label>
+              <textarea
+                className="form-control"
+                id="content"
+                rows="3"
+                value={content}
+                onChange={handleContentChange}
+              ></textarea>
+            </div>
+            <div className="form-group">
+              <label htmlFor="imageSrc">Imagén</label>
+              <input
+                type="text"
+                className="form-control"
+                id="imageSrc"
+                value={imageSrc}
+                onChange={handleImageSrcChange}
+              />
+            </div>
+            <button
+              type="button"
+              className="btn btn-danger mr-2"
+              onClick={handleDeleteClick}
+            >
+              Delete
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSaveClick}
+            >
+              Save Changes
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default EditBox;

@@ -21,7 +21,7 @@ router.get("/why", async (req, res) => {
   try {
     const posts = await sequelize.query(
       `SELECT *
-      FROM posts`,
+      FROM posts `,
       { type: sequelize.QueryTypes.SELECT }
     );
     res.send(posts);

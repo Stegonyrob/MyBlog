@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Card from "./Card";
+import Cards from "./Card";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 const Article = () => {
@@ -39,7 +39,7 @@ const Article = () => {
           {currentCards.map((card, index) => {
             console.log("ID del post:", card.id);
             return (
-              <Card
+              <Cards
                 key={index}
                 imageSrc={card.imageSrc}
                 title={<Link to={`/editcard/${card.id}`}>{card.title}</Link>}

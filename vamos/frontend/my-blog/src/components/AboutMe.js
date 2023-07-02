@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Card from "../components/Card";
+import AbautCard from "./AbautCard";
 
 const AboutMe = () => {
   const [cards, setCards] = useState([]);
@@ -24,18 +24,14 @@ const AboutMe = () => {
 
   return (
     <article className="text-center">
-      <div className="container-fluid">
-        <div className="card-group">
-          {cards.map((card, index) => (
-            <Card
-              key={index}
-              title={card.title}
-              content={card.coment}
-              createdAt={card.createdAt}
-            />
-          ))}
-        </div>
-      </div>
+      {cards.map((card, index) => (
+        <AbautCard
+          key={index}
+          title={card.title}
+          content={card.coment}
+          createdAt={card.createdAt}
+        />
+      ))}
     </article>
   );
 };

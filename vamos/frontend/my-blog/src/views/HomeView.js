@@ -24,7 +24,6 @@ export default function HomeView() {
     <div>
       <CustomNavbar onAddClick={handleAddClick} />
       <Article cards={""} />
-
       <Footer />
     </div>
   );
