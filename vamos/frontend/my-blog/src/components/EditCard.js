@@ -2,9 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import { Link, useParams } from "react-router-dom";
-import SubmitButton from "./SubmitButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenNib } from "@fortawesome/free-solid-svg-icons";
+import EditButton from "./EditButton";
 const EditableCard = (onAddClick) => {
   const { id } = useParams();
   const [card, setCard] = useState(null);
@@ -34,23 +32,19 @@ const EditableCard = (onAddClick) => {
     <article className="text-center">
       <div className="container-fluid">
         <div className="card-group">
-          <Card
-            key={card.id}
-            imageSrc={card.imageSrc}
-            title={card.title}
-            content={card.content}
-            createdAt={card.createdAt}
-          />
+          <div>
+            <Card
+              key={card.id}
+              imageSrc={card.imageSrc}
+              title={card.title}
+              content={card.content}
+              createdAt={card.createdAt}
+            />
+            <div>
+              <EditButton id={card.id} />
+            </div>
+          </div>
         </div>
-        <SubmitButton
-          type="button"
-          content={<FontAwesomeIcon icon={faPenNib} />}
-          id="new-post-image"
-          title="open"
-          as={Link}
-          to={`/editbox/${card.id}`}
-          onClick={onAddClick}
-        ></SubmitButton>
       </div>
     </article>
   );

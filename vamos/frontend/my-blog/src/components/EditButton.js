@@ -1,23 +1,18 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SubmitButton from "./SubmitButton";
 import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenNib } from "@fortawesome/free-solid-svg-icons";
-import { Link, useParams } from "react-router-dom";
-function EditButton({ onAddClick, id }) {
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  };
 
+const EditButton = ({ id }) => {
   return (
-    <SubmitButton
-      type="button"
-      content={<FontAwesomeIcon icon={faPenNib} />}
-      id="new-post-image"
-      title="open"
-      as={Link}
-      to={`/editbox/${id}`}
-      onClick={onAddClick}
-    ></SubmitButton>
+    <div className="d-flex">
+      <Link to={`/editbox/${id}`}>
+        <button className="btn">
+          <FontAwesomeIcon icon={faPenNib} />
+        </button>
+      </Link>
+    </div>
   );
-}
+};
+
 export default EditButton;
