@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import { Link, useParams } from "react-router-dom";
-import SubmitButton from "./SubmitButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenNib } from "@fortawesome/free-solid-svg-icons";
-const EditableCard = (onAddClick) => {
+
+import EditButton from "./EditButton";
+
+const EditableCard = ({ onClick }) => {
   const { id } = useParams();
   const [card, setCard] = useState(null);
 
@@ -26,9 +26,6 @@ const EditableCard = (onAddClick) => {
   if (!card) {
     return null;
   }
-  function handleReplyClick() {
-    setIsOpen(true);
-  }
 
   return (
     <article className="text-center">
@@ -42,15 +39,7 @@ const EditableCard = (onAddClick) => {
             createdAt={card.createdAt}
           />
         </div>
-        <SubmitButton
-          type="button"
-          content={<FontAwesomeIcon icon={faPenNib} />}
-          id="new-post-image"
-          title="open"
-          as={Link}
-          to={`/editbox/${card.id}`}
-          onClick={onAddClick}
-        ></SubmitButton>
+        <EditButton />
       </div>
     </article>
   );

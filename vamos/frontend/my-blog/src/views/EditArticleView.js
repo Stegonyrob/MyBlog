@@ -1,14 +1,19 @@
 import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Footer from "../components/Footer";
 import CustomNavbar from "../components/NavBar";
-import EditableCard from "../components/EditCard";
+import EditCard from "../components/EditCard";
 
-export default function EditableCardView() {
-  return (
-    <div>
+function renderEditableCardView() {
+  ReactDOM.render(
+    <Router>
       <CustomNavbar />
-      <EditableCard />
+      <EditCard />
       <Footer />
-    </div>
+    </Router>,
+    document.getElementById("root")
   );
 }
+
+export default renderEditableCardView;
