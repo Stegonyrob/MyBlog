@@ -11,7 +11,8 @@ import {
 import AboutMeView from "./views/AboutMeView";
 import HomeView from "./views/HomeView";
 import NewArticleView from "./views/NewArticleView";
-import SuggestedPagesView from "./views/SuggestPagesView";
+import EditBoxView from "./views/EditBoxView";
+import EditableCardView from "./views/EditArticleView";
 function App() {
   return (
     <>
@@ -20,8 +21,9 @@ function App() {
           <Routes>
             <Route path="/" element={<AboutMeView />} />
             <Route path="/newarticle" element={<NewArticleView />} />
+            <Route path="/editcard/:id" element={<EditableCardView />} />
+            <Route path="/editbox/:id" element={<EditBoxView />} />
             <Route path="/home" element={<HomeView />} />
-            <Route path="/suggested-pages" element={<SuggestedPagesView />} />
           </Routes>
         </BrowserRouter>
       </div>

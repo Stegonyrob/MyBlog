@@ -36,17 +36,18 @@ const Article = () => {
     <article className="text-center">
       <div className="container-fluid">
         <div className="card-group">
-          {currentCards.map((card, index) => (
-            <Card
-              key={index}
-              imageSrc={card.imageSrc}
-              title={
-                <Link to={`/ruta-de-edicion/${card.id}`}>{card.title}</Link>
-              }
-              content={card.content}
-              createdAt={card.createdAt}
-            />
-          ))}
+          {currentCards.map((card, index) => {
+            console.log("ID del post:", card.id);
+            return (
+              <Card
+                key={index}
+                imageSrc={card.imageSrc}
+                title={<Link to={`/editcard/${card.id}`}>{card.title}</Link>}
+                content={card.content}
+                createdAt={card.createdAt}
+              />
+            );
+          })}
         </div>
       </div>
       <ReactPaginate

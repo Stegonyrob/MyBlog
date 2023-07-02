@@ -8,8 +8,6 @@ var app = require("../app");
 var debug = require("debug")("backend:server");
 var http = require("http");
 
-const multer = require("multer");
-
 /**
  * Get port from environment and store in Express.
  */
@@ -27,9 +25,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, function () {
-  console.log(`Server listening on port ${port}`);
-});
+server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 
@@ -78,24 +74,6 @@ function onError(error) {
       throw error;
   }
 }
-
-// Configuración de Multer
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/images/"); // Carpeta de destino para las imágenes
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + "-" + Date.now()); // Nombre de archivo único
-  },
-});
-
-const upload = multer({ storage: storage });
-
-// Ruta para subir archivos
-app.post("/upload", upload.single("image"), (req, res) => {
-  res.send(req.file);
-});
 
 /**
  * Event listener for HTTP server "listening" event.

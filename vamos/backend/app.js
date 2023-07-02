@@ -6,12 +6,9 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const multer = require("multer");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
 var postsRouter = require("./routes/posts");
-var followRouter = require("./routes/follow");
-var feedbackRouter = require("./routes/feedback");
 
 require("./db/connection.js");
 
@@ -57,12 +54,22 @@ app.use(function (req, res, next) {
   next();
 });
 
+// configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "bin/public/images"); // Carpeta de destino para las imágenes
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg"); // Nombre de archivo único
+  },
+});
+
+const upload = multer({ storage: storage });
+
 //Routes config
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+
 app.use("/posts", postsRouter);
-app.use("/follow", followRouter);
-app.use("/feedback", feedbackRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
