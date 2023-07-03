@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Card, Col } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Truncate from "react-text-truncate";
 
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Cards = ({ imageSrc, title, content, createdAt }) => {
   const { id } = useParams();
@@ -11,11 +11,11 @@ const Cards = ({ imageSrc, title, content, createdAt }) => {
 
   return (
     <Col md={3}>
-      <Card>
-        <Card.Img variant="top" src={imageSrc} />
+      <Card bg="dark">
+        <Card.Img variant="top" className="cardimage " src={imageSrc} />
         <Card.Body>
           <Card.Title>{title}</Card.Title>
-          <Card.Text>
+          <Card.Text className="cardtext">
             <Truncate
               line={6}
               element="span"

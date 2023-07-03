@@ -55,7 +55,7 @@ body {
 .footer-text{
   padding-top: 20px;
   text-align: center;
-  
+  color:whitesmoke
 }
 .abautcard{
   justify-content: space-around;
@@ -63,10 +63,10 @@ body {
   width: 200%;
   justify-content: space-around;
   text-justify: distribute-all-lines;
-  
+  color:whitesmoke
 }
-.car.text{
-  text-justify: distribute-all-lines;
+.cardtext{
+  color:whitesmoke
 }
 .editbox{
   padding: 15px;
@@ -83,4 +83,37 @@ Button{
  display: inline;
  margin-top: 10px;
  margin-inline: auto;
+}
+.card-footer{
+  color:whitesmoke
+}
+.cardimage{
+ margin: auto;
+ padding: 10px;
+}
+.postbox{
+  padding: 15px;
+  margin-left: 10%;
+  margin-right: 10%;
+  justify-content: space-around;
+  width: 80%;
+  text-justify: distribute-all-lines;
+  color:whitesmoke;
+  border-radius: var(--bs-card-border-radius);
+}
+input {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  appearance: none;
+  border-radius: var(--bs-border-radius);
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  justify-content: space-around;
 }
