@@ -6,7 +6,8 @@ function PostForm({ onCreatePost, history }) {
   const [title, setTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [image, setImage] = useState(null);
-  const fileInputRef = useRef(null); // Agrega esta línea
+  const [imageUrl, setImageUrl] = useState("");
+  const fileInputRef = useRef(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -14,6 +15,7 @@ function PostForm({ onCreatePost, history }) {
     const postData = {
       title: title,
       content: postContent,
+      imageUrl: imageUrl,
     };
 
     try {
@@ -26,6 +28,8 @@ function PostForm({ onCreatePost, history }) {
       setTitle("");
       setPostContent("");
       setImage(null);
+      setImageUrl("");
+
       history.push("/home");
     } catch (error) {
       console.error(error);
@@ -36,8 +40,25 @@ function PostForm({ onCreatePost, history }) {
     fileInputRef.current.click();
   };
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     setImage(event.target.files[0]);
+
+    const formData = new FormData();
+    formData.append("image", event.target.files[0]);
+
+    try {
+      const uploadResponse = await axios.post(
+        "http://localhost:3000/posts/send/uploadImage",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      console.log(uploadResponse.data);
+      setImageUrl(uploadResponse.data.imageUrl);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -58,8 +79,7 @@ function PostForm({ onCreatePost, history }) {
           </div>
           <div>
             <label htmlFor="postContent">Contenido</label>
-            <input
-              type="text"
+            <textarea
               value={postContent}
               onChange={(event) => setPostContent(event.target.value)}
               className="new-post"
@@ -72,7 +92,7 @@ function PostForm({ onCreatePost, history }) {
             <div>
               <div className="insert">
                 <div>
-                  <label htmlFor="postContent">Insertar Imagen</label>
+                  <label htmlFor="imageInput">Insertar Imagen</label>
                 </div>
                 <Button type="button" onClick={handleButtonClick}>
                   Insertar imagen
@@ -86,12 +106,11 @@ function PostForm({ onCreatePost, history }) {
                   ref={fileInputRef}
                   style={{ display: "none" }}
                 />
-                <a> </a>
-                <Button type="submit" content="Enviar">
-                  Enviar
-                </Button>
               </div>
             </div>
+            <Button type="submit" content="Enviar">
+              Enviar
+            </Button>
           </div>
         </form>
       </Card>

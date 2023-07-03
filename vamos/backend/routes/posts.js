@@ -3,10 +3,10 @@ const sequelize = require("../db/connection");
 const router = express.Router();
 const Post = require("../models/modelPost");
 const multer = require("multer");
-
+const { Op } = require("sequelize");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../public/images");
+    cb(null, "public/images");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -16,12 +16,32 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// POST /posts/uploadImage
+router.post("/uploadImage", upload.single("image"), async (req, res) => {
+  try {
+    // Obtener la URL de la imagen cargada
+    const imageUrl = req.file ? req.file.filename : null;
+
+    // Verificar si se cargó una imagen
+    if (!imageUrl) {
+      return res.status(400).json({ error: "No se cargó ninguna imagen" });
+    }
+
+    // Guardar la URL de la imagen en la base de datos
+    const newPost = await Post.create({ image: imageUrl });
+
+    res.status(200).json({ imageUrl });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al guardar la imagen" });
+  }
+});
+
 //GET all post
 router.get("/why", async (req, res) => {
   try {
     const posts = await sequelize.query(
-      `SELECT *
-      FROM posts `,
+      "SELECT * FROM posts ORDER BY createdAt DESC",
       { type: sequelize.QueryTypes.SELECT }
     );
     res.send(posts);
@@ -60,11 +80,12 @@ router.get("/why/:id", async (req, res) => {
   }
 });
 
-//POST posts
+// POST /posts/send
 router.post("/send", upload.single("image"), async function (req, res) {
   try {
     const { title, content } = req.body;
-    const image = req.file ? req.file.filename : null; // Obtener el nombre de archivo guardado por Multer
+    const image = req.file ? req.file.filename : null;
+
     const newPost = await sequelize.query(
       `INSERT INTO posts (title, content, image) VALUES (?, ?, ?)`,
       {
@@ -72,6 +93,7 @@ router.post("/send", upload.single("image"), async function (req, res) {
         replacements: [title, content, image],
       }
     );
+
     res.status(200).json({
       title,
       content,
@@ -82,6 +104,7 @@ router.post("/send", upload.single("image"), async function (req, res) {
     res.status(400).send({ error: e.message });
   }
 });
+
 //Get about
 router.get("/abaut", async (req, res) => {
   try {
@@ -127,6 +150,7 @@ router.put("/why/:id", async (req, res) => {
     res.status(500).send({ error: "Internal server error" });
   }
 });
+//Delete post
 router.delete("/why/:id", async (req, res) => {
   try {
     const postId = req.params.id;
