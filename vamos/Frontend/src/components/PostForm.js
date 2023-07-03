@@ -70,7 +70,6 @@ function PostForm({ onCreatePost, history }) {
           </div>
           <div className="insert">
             <div>
-              {" "}
               <div className="insert">
                 <div>
                   <label htmlFor="postContent">Insertar Imagen</label>
@@ -87,7 +86,7 @@ function PostForm({ onCreatePost, history }) {
                   ref={fileInputRef}
                   style={{ display: "none" }}
                 />
-
+                <a> </a>
                 <Button type="submit" content="Enviar">
                   Enviar
                 </Button>

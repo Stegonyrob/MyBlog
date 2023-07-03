@@ -33,7 +33,7 @@ const PostCard = () => {
 
   return (
     <Col md={6}>
-      <Card>
+      <Card bg="dark" className="postcard">
         <Card.Img variant="top" src={card.imageSrc} />
         <Card.Body>
           <Card.Title>{card.title}</Card.Title>

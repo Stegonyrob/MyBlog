@@ -28,11 +28,11 @@ const EditableCard = () => {
 
   return (
     <Col md={3}>
-      <Card>
+      <Card bg="dark" className="editcard">
         <Card.Img variant="top" src={card.imageSrc} />
         <Card.Body>
-          <Card.Title>{card.title}</Card.Title>
-          <Card.Text>{card.content}</Card.Text>
+          <Card.Title className="cardtext">{card.title}</Card.Title>
+          <Card.Text className="cardtext">{card.content}</Card.Text>
           <Button variant="primary" onClick={() => navigate(`/postcard/${id}`)}>
             Leer más
           </Button>
