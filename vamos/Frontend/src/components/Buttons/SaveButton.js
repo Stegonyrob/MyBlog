@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+import { Button } from "react-bootstrap";
 const SaveButton = ({ id, editedTitle, editedContent, editedImageSrc }) => {
   const handleSaveClick = async () => {
     try {
@@ -16,7 +16,11 @@ const SaveButton = ({ id, editedTitle, editedContent, editedImageSrc }) => {
     }
   };
 
-  return <button onClick={handleSaveClick}>Guardar</button>;
+  return (
+    <Button variant="primary" onClick={handleSaveClick}>
+      Guardar
+    </Button>
+  );
 };
 
 export default SaveButton;

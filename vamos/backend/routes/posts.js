@@ -127,4 +127,28 @@ router.put("/why/:id", async (req, res) => {
     res.status(500).send({ error: "Internal server error" });
   }
 });
+router.delete("/why/:id", async (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    const query = `DELETE FROM posts WHERE id=?`;
+    const parameters = [postId];
+
+    const [deletedRowsCount] = await sequelize.query(query, {
+      replacements: parameters,
+    });
+
+    if (deletedRowsCount === 0) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    res.status(200).json({
+      message: "Post deleted successfully",
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;

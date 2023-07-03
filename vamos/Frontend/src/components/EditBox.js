@@ -62,8 +62,8 @@ const EditBox = () => {
   };
 
   return (
-    <Col md={6}>
-      <Card>
+    <Col>
+      <Card bg="dark" className="editbox">
         <h1>Edición de los Post</h1>
         <form>
           <Card.Img variant="top" src={card.imageSrc} />
@@ -89,7 +89,9 @@ const EditBox = () => {
               editedContent={editedContent}
               editedImageSrc={editedImageSrc}
             />
+
             <CancelButton onClick={handleCancel} />
+
             <DeleteButton id={id} />
           </div>
         </form>

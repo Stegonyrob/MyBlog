@@ -25,18 +25,14 @@ body {
 }
 .card{
   margin-top: 2%;
- 
-}
+ }
 .card-img-top{
   height: 180px;
   width: 250px;
 }
-.custom-navbar {
-  background-color: black;
-}
+
 .nav-link.active {
   color: #bf1919 !important;
-
 }
 
 .logo-img{
@@ -44,8 +40,7 @@ body {
   width: auto;
   margin-left: 1rem;
   border-radius: 5px;
-  
-}
+  }
 .footer{
   position:fixed;
   margin-top: 35rem;
@@ -72,4 +67,20 @@ body {
 }
 .car.text{
   text-justify: distribute-all-lines;
+}
+.editbox{
+  padding: 15px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+h1{
+  color: whitesmoke;
+}
+label{
+  color: whitesmoke;
+}
+Button{
+ display: inline;
+ margin-top: 10px;
+ margin-inline: auto;
 }

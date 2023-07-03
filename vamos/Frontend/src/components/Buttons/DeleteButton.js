@@ -1,7 +1,7 @@
 // Componente para el botón "Borrar"
 import React from "react";
 import axios from "axios";
-
+import { Button } from "react-bootstrap";
 const DeleteButton = ({ id }) => {
   const handleDeleteClick = async () => {
     try {
@@ -12,7 +12,11 @@ const DeleteButton = ({ id }) => {
     }
   };
 
-  return <button onClick={handleDeleteClick}>Borrar</button>;
+  return (
+    <Button variant="primary" onClick={handleDeleteClick}>
+      Borrar
+    </Button>
+  );
 };
 
 export default DeleteButton;
