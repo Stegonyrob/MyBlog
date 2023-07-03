@@ -1,88 +1,61 @@
 require("dotenv").config();
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const multer = require("multer");
+const createError = require("http-errors");
+const postsRouter = require("./routes/posts");
+const { sequelize } = require("./db/connection");
 
-var postsRouter = require("./routes/posts");
+const app = express();
 
-require("./db/connection.js");
-
-var app = express();
-
+// Configuración del servidor
 app.locals.title = "Soy Linux";
 
-// view engine setup
+// Configuración del motor de vistas
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+// Middlewares
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
-
 app.use(cors());
 
-// Add headers before the routes are defined
-app.use(function (req, res, next) {
-  // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
-
-  // Request methods you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-
-  // Request headers you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader("Access-Control-Allow-Credentials", false);
-
-  // Pass to next layer of middleware
-  next();
-});
-
-// configure multer for file uploads
+// Configuración de multer para subir archivos
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "bin/public/images"); // Carpeta de destino para las imágenes
+    cb(null, path.join(__dirname, "bin", "public", "images"));
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg"); // Nombre de archivo único
+    cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg");
   },
 });
 
 const upload = multer({ storage: storage });
 
-//Routes config
-
+// Rutas
 app.use("/posts", postsRouter);
 
-// catch 404 and forward to error handler
+// Captura de errores 404 y envío al manejador de errores
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// Manejador de errores
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
+  // Configuración de locals solo en desarrollo
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
+  // Renderización de la página de error
   res.status(err.status || 500);
   res.render("error");
 });

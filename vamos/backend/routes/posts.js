@@ -2,49 +2,87 @@ const express = require("express");
 const sequelize = require("../db/connection");
 const router = express.Router();
 const Post = require("../models/modelPost");
-const upload = require("../routes/midelware/multer");
+const upload = require("./multerMiddleware");
 
-// POST /posts/uploadImage
-router.post("/uploadImage", upload.single("image"), async (req, res) => {
+// POST /posts
+router.post("/", upload.single("image"), async (req, res) => {
   try {
-    // Obtener la URL de la imagen cargada
+    const { title, content } = req.body;
     const imageUrl = req.file ? req.file.filename : null;
 
-    // Verificar si se cargó una imagen
-    if (!imageUrl) {
-      return res.status(400).json({ error: "No se cargó ninguna imagen" });
-    }
-
     // Guardar la URL de la imagen en la base de datos
-    const newPost = await Post.create({ image: imageUrl });
+    const newPost = await sequelize.query(
+      "INSERT INTO posts (title, content, image) VALUES (?, ?, ?)",
+      {
+        type: sequelize.QueryTypes.INSERT,
+        replacements: [title, content, imageUrl],
+      }
+    );
 
-    res.status(200).json({ imageUrl });
+    res.status(200).json({
+      title,
+      content,
+      image: imageUrl,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error al guardar la imagen" });
   }
 });
 
-// POST /posts/uploadImage
-router.post("/uploadImage", upload.single("image"), async (req, res) => {
+//POST posts
+router.post("/send", upload.single("image"), async function (req, res) {
   try {
-    // Obtener la URL de la imagen cargada
-    const imageUrl = req.file ? req.file.filename : null;
-
-    // Verificar si se cargó una imagen
-    if (!imageUrl) {
-      return res.status(400).json({ error: "No se cargó ninguna imagen" });
-    }
-
-    // Guardar la URL de la imagen en la base de datos
-    const newPost = await Post.create({ image: imageUrl });
-
-    res.status(200).json({ imageUrl });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error al guardar la imagen" });
+    const { title, content } = req.body;
+    const image = req.file ? req.file.filename : null; // Obtener el nombre de archivo guardado por Multer
+    const newPost = await sequelize.query(
+      `INSERT INTO posts (title, content, image) VALUES (?, ?, ?)`,
+      {
+        type: sequelize.QueryTypes.INSERT,
+        replacements: [title, content, image],
+      }
+    );
+    res.status(200).json({
+      title,
+      content,
+      image,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(400).send({ error: e.message });
   }
 });
+
+// // POST /posts/send
+// router.post("/send", upload.single("image"), async (req, res) => {
+//   try {
+//     const { title, content } = req.body;
+//     const imageUrl = req.file ? req.file.filename : null;
+
+//     // Verificar si se cargó una imagen
+//     if (!imageUrl) {
+//       return res.status(400).json({ error: "No se cargó ninguna imagen" });
+//     }
+
+//     // Guardar la URL de la imagen en la base de datos
+//     const newPost = await sequelize.query(
+//       `INSERT INTO posts (title, content, image) VALUES (?, ?, ?)`,
+//       {
+//         type: sequelize.QueryTypes.INSERT,
+//         replacements: [title, content, imageUrl],
+//       }
+//     );
+
+//     res.status(200).json({
+//       title,
+//       content,
+//       image: imageUrl,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Error al guardar la imagen" });
+//   }
+// });
 
 //GET all post
 router.get("/why", async (req, res) => {
@@ -86,31 +124,6 @@ router.get("/why/:id", async (req, res) => {
   } catch (e) {
     console.error(e);
     res.status(500).send({ error: "Internal server error" });
-  }
-});
-
-// POST /posts/send
-router.post("/send", upload.single("image"), async function (req, res) {
-  try {
-    const { title, content } = req.body;
-    const image = req.file ? req.file.filename : null;
-
-    const newPost = await sequelize.query(
-      `INSERT INTO posts (title, content, image) VALUES (?, ?, ?)`,
-      {
-        type: sequelize.QueryTypes.INSERT,
-        replacements: [title, content, image],
-      }
-    );
-
-    res.status(200).json({
-      title,
-      content,
-      image,
-    });
-  } catch (e) {
-    console.error(e);
-    res.status(400).send({ error: e.message });
   }
 });
 
