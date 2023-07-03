@@ -2,19 +2,28 @@ const express = require("express");
 const sequelize = require("../db/connection");
 const router = express.Router();
 const Post = require("../models/modelPost");
-const multer = require("multer");
-const { Op } = require("sequelize");
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/images");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix);
-  },
-});
+const upload = require("../routes/midelware/multer");
 
-const upload = multer({ storage: storage });
+// POST /posts/uploadImage
+router.post("/uploadImage", upload.single("image"), async (req, res) => {
+  try {
+    // Obtener la URL de la imagen cargada
+    const imageUrl = req.file ? req.file.filename : null;
+
+    // Verificar si se cargó una imagen
+    if (!imageUrl) {
+      return res.status(400).json({ error: "No se cargó ninguna imagen" });
+    }
+
+    // Guardar la URL de la imagen en la base de datos
+    const newPost = await Post.create({ image: imageUrl });
+
+    res.status(200).json({ imageUrl });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al guardar la imagen" });
+  }
+});
 
 // POST /posts/uploadImage
 router.post("/uploadImage", upload.single("image"), async (req, res) => {

@@ -38,22 +38,21 @@ const Article = () => {
 
   return (
     <article className="text-center">
-      <div className="container-fluid">
-        <div className="card-group">
-          {currentCards.map((card, index) => {
-            console.log("ID del post:", card.id);
-            return (
-              <Cards
-                key={index}
-                imageSrc={card.imageSrc}
-                title={<Link to={`/editcard/${card.id}`}>{card.title}</Link>}
-                content={card.content}
-                createdAt={card.createdAt}
-              />
-            );
-          })}
-        </div>
+      <div className="card-group articlecard">
+        {currentCards.map((card, index) => {
+          console.log("ID del post:", card.id);
+          return (
+            <Cards
+              key={index}
+              imageSrc={card.imageSrc}
+              title={<Link to={`/editcard/${card.id}`}>{card.title}</Link>}
+              content={card.content}
+              createdAt={card.createdAt}
+            />
+          );
+        })}
       </div>
+
       <ReactPaginate
         pageCount={Math.ceil(cards.length / pageSize)}
         onPageChange={handlePageClick}
