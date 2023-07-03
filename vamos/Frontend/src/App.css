@@ -20,6 +20,7 @@ body {
   color: aliceblue;
   font-family: Arial, Helvetica, sans-serif;
 }
+/*NavBar*/
 .navbar{
   background-color: black;
 }
@@ -41,37 +42,9 @@ body {
   margin-left: 1rem;
   border-radius: 5px;
   }
-.footer{
-  text-justify: auto;
-  text-align: center;
-  justify-content: space-around;
-  width: 100%;
-  color:whitesmoke;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  padding: 10px;
- 
-
-}
 
 
-.abautcard{
-  justify-content: space-around;
-  margin:30% 30% 20% 100%;
-  width: 200%;
-  justify-content: space-around;
-  text-justify: distribute-all-lines;
-  color:whitesmoke
-}
-.cardtext{
-  color:whitesmoke
-}
-.editbox{
-  padding: 15px;
-  margin-left: 15%;
-  margin-right: 15%;
-}
+/*CARDS*/ 
 h1{
   color: whitesmoke;
 }
@@ -130,11 +103,82 @@ input {
 .postcard{
   padding: 15px;
   margin-left: 55%;
-
   justify-content: space-around;
   width: 80%;
   text-justify: distribute-all-lines;
   color:whitesmoke;
   border-radius: var(--bs-card-border-radius);
 
+}
+.footer{
+  text-justify: auto;
+  text-align: center;
+  justify-content: space-around;
+  width: 100%;
+  color:whitesmoke;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 10px;
+ 
+
+}
+
+.abautcard{
+  justify-content: space-around;
+  margin:30% 30% 20% 100%;
+  width: 200%;
+  justify-content: space-around;
+  text-justify: distribute-all-lines;
+  color:whitesmoke
+}
+.cardtext{
+  color:whitesmoke
+}
+.editbox{
+  padding: 15px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+/*PAGINATION*/
+.pagination {
+  margin-top: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  color: #353030;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination li a {
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #353030;
+}
+
+.pagination li a:hover {
+  background-color: #f5f5f5;
+}
+
+.pagination .previous a,
+.pagination .next a {
+  font-weight: bold;
+}
+
+.pagination .active a {
+  background-color:  #353030;
+  color: #fff;
+}
+
+.pagination .disabled a {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: #fff;
 }

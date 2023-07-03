@@ -59,6 +59,9 @@ const Article = () => {
         onPageChange={handlePageClick}
         containerClassName="pagination"
         activeClassName="active"
+        previousLinkClassName="previous"
+        nextLinkClassName="next"
+        disabledClassName="disabled"
       />
     </article>
   );
