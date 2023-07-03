@@ -97,9 +97,8 @@ router.get("/abaut", async (req, res) => {
   }
 });
 
-//PUT editbox
-
-router.put("/change/:id", upload.single("image"), async (req, res) => {
+//Put posts for id post
+router.put("/why/:id", async (req, res) => {
   try {
     const postId = req.params.id;
     const { title, content } = req.body;
@@ -121,12 +120,11 @@ router.put("/change/:id", upload.single("image"), async (req, res) => {
       title,
       content,
       image,
-      createdAt, // Cambio: usar createdAt en lugar de updatedAt
+      createdAt,
     });
   } catch (e) {
     console.error(e);
     res.status(500).send({ error: "Internal server error" });
   }
 });
-
 module.exports = router;
