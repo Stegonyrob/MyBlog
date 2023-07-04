@@ -8,7 +8,7 @@ import CancelButton from "../components/Buttons/CancelButton";
 import axios from "axios";
 import { Col } from "react-bootstrap";
 import EditableInput from "../components/EditableInput";
-
+import { url } from "../utils/url";
 const EditBox = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const EditBox = () => {
       <Card bg="dark" className="editbox">
         <h1>Edición de los Post</h1>
         <form>
-          <Card.Img variant="top" src={card.imageSrc} />
+          <Card.Img variant="top" src={`${url}${card.image}`} />
           <EditableInput
             label="Título"
             value={editedTitle}

@@ -2,11 +2,11 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "bin/public/"); // Directorio donde se guardarán las imágenes
+    cb(null, "public/"); // Directorio donde se guardarán las imágenes
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const extension = file.originalname.split(".").pop(); // Extensión del archivo original
+    const extension = file.originalname.split(".").pop();
     cb(null, uniqueSuffix + "." + extension); // Nombre del archivo guardado en el servidor
   },
 });

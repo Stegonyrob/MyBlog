@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Button, Card, Col } from "react-bootstrap";
 import EditButton from "./Buttons/EditButton";
+import { url } from "../utils/url";
 const PostCard = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const PostCard = () => {
   return (
     <Col md={6}>
       <Card bg="dark" className="postcard">
-        <Card.Img variant="top" src={card.imageSrc} />
+        <Card.Img variant="top" src={`${url}${card.image}`} />
         <Card.Body>
           <Card.Title>{card.title}</Card.Title>
           <Card.Text>{card.content}</Card.Text>

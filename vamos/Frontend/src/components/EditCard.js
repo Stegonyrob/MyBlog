@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Button, Card, Col } from "react-bootstrap";
-
+import { url } from "../utils/url";
 const EditableCard = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const EditableCard = () => {
   return (
     <Col md={3}>
       <Card bg="dark" className="editcard">
-        <Card.Img variant="top" src={card.imageSrc} />
+        <Card.Img variant="top" src={`${url}${card.image}`} />
         <Card.Body>
           <Card.Title className="cardtext">{card.title}</Card.Title>
           <Card.Text className="cardtext">{card.content}</Card.Text>

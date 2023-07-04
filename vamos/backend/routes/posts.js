@@ -117,11 +117,9 @@ router.put("/why/:id", async (req, res) => {
     const postId = req.params.id;
     const { title, content } = req.body;
     const image = req.file ? req.file.filename : null;
-    const createdAt = new Date().toISOString().slice(0, 19).replace("T", " "); // Cambio: usar createdAt en lugar de updatedAt
-
-    const query = `UPDATE posts SET title=?, content=?, image=?, createdAt=? WHERE id=?`; // Cambio: usar createdAt en lugar de updatedAt
-    const parameters = [title, content, image, createdAt, postId]; // Cambio: usar createdAt en lugar de updatedAt
-
+    const createdAt = new Date().toISOString().slice(0, 19).replace("T", " ");
+    const query = `UPDATE posts SET title=?, content=?, image=?, createdAt=? WHERE id=?`;
+    const parameters = [title, content, image, createdAt, postId];
     const [updatedRowsCount] = await sequelize.query(query, {
       replacements: parameters,
     });

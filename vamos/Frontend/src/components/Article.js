@@ -5,18 +5,26 @@ import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import { url } from "../utils/url";
 const Article = () => {
   const { id } = useParams();
   const [cards, setCards] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const navigate = useNavigate();
   const pageSize = 4;
-
+  const [Title, setCardsTitle] = useState("");
+  const [Content, setCardsContent] = useState("");
+  const [Image, setCardsImage] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3000/posts/why");
         setCards(response.data);
+
+        console.log(response.data);
+        setCardsTitle(response.data.title);
+        setCardsContent(response.data.content);
+        setCardsImage(response.data.image);
       } catch (e) {
         console.error(e);
       }
@@ -40,11 +48,10 @@ const Article = () => {
     <article className="text-center">
       <div className="card-group articlecard">
         {currentCards.map((card, index) => {
-          console.log("ID del post:", card.id);
           return (
             <Cards
               key={index}
-              imageSrc={card.imageSrc}
+              imageSrc={`${url}${card.image}`}
               title={<Link to={`/editcard/${card.id}`}>{card.title}</Link>}
               content={card.content}
               createdAt={card.createdAt}
