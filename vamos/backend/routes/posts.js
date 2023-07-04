@@ -53,37 +53,6 @@ router.post("/send", upload.single("image"), async function (req, res) {
   }
 });
 
-// // POST /posts/send
-// router.post("/send", upload.single("image"), async (req, res) => {
-//   try {
-//     const { title, content } = req.body;
-//     const imageUrl = req.file ? req.file.filename : null;
-
-//     // Verificar si se cargó una imagen
-//     if (!imageUrl) {
-//       return res.status(400).json({ error: "No se cargó ninguna imagen" });
-//     }
-
-//     // Guardar la URL de la imagen en la base de datos
-//     const newPost = await sequelize.query(
-//       `INSERT INTO posts (title, content, image) VALUES (?, ?, ?)`,
-//       {
-//         type: sequelize.QueryTypes.INSERT,
-//         replacements: [title, content, imageUrl],
-//       }
-//     );
-
-//     res.status(200).json({
-//       title,
-//       content,
-//       image: imageUrl,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Error al guardar la imagen" });
-//   }
-// });
-
 //GET all post
 router.get("/why", async (req, res) => {
   try {

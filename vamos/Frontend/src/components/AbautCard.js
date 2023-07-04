@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
 
-const AbautCard = ({ title, content, createdAt }) => {
+const AbautCard = ({ title, content }) => {
   return (
     <Col md={3}>
       <div className="container-fluid">
