@@ -20,8 +20,6 @@ const Article = () => {
       try {
         const response = await axios.get("http://localhost:3000/posts/why");
         setCards(response.data);
-
-        console.log(response.data);
         setCardsTitle(response.data.title);
         setCardsContent(response.data.content);
         setCardsImage(response.data.image);
@@ -46,10 +44,11 @@ const Article = () => {
 
   return (
     <article>
-      <div className="card-group card-row">
+      <div className="card-group card-row ">
         {currentCards.map((card, index) => {
           return (
             <Cards
+              id={card.id}
               key={index}
               imageSrc={`${url}${card.image}`}
               title={<Link to={`/editcard/${card.id}`}>{card.title}</Link>}
@@ -59,7 +58,6 @@ const Article = () => {
           );
         })}
       </div>
-
       <ReactPaginate
         pageCount={Math.ceil(cards.length / pageSize)}
         onPageChange={handlePageClick}

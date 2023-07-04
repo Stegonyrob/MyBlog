@@ -24,9 +24,7 @@ body {
 .navbar{
   background-color: black;
 }
-.card{
-  margin-top: 2%;
- }
+
 .card-img-top{
   height: 180px;
   width: 250px;
@@ -46,6 +44,9 @@ body {
 
 /*CARDS*/ 
 h1{
+  color: whitesmoke;
+}
+h4{
   color: whitesmoke;
 }
 label{
@@ -157,14 +158,14 @@ input {
 .card-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 45px; /* Espacio entre las tarjetas */
+  gap: 45px;
+  width: 100%;
   align-items: center !important;
   text-justify: center!important;
-  margin-inline-start: 15%;
-  margin-top: 5%;
-  
+  margin-inline-start: 10%;
+  margin-top: 2%;
 }
-card-footer {
+.card-footer {
 
   color: whitesmoke !important;
  
@@ -177,7 +178,7 @@ card-footer {
 
 /*PAGINATION*/
 .pagination {
-  margin-top: 65px;
+  margin-top: 2%;
   display: flex;
   justify-content: center;
   align-items: center;

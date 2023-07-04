@@ -44,6 +44,7 @@ const EditBox = () => {
     setEditedContent(card.content);
     setEditedImageSrc(card.image);
   };
+  /* Futura implementación de edición de imagen */
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
@@ -59,7 +60,7 @@ const EditBox = () => {
             <Card.Img variant="top" src={`${url}${card.image}`} />
             <div className="mx-3">
               <h1> {card.title}</h1>
-              <h1> {card.content}</h1>
+              <h4> {card.content}</h4>
             </div>
           </div>
           <EditableInput
@@ -74,6 +75,7 @@ const EditBox = () => {
           />
           <div className="insert">
             <div className="d-flex justify-content-end">
+              {/* Futura implementación de edición de imagen */}
               {/* <Button type="button" onClick={handleButtonClick}>
                 Insertar imagen
               </Button>
@@ -86,7 +88,6 @@ const EditBox = () => {
                 ref={fileInputRef}
                 style={{ display: "none" }}
               /> */}
-
               <SaveButton
                 id={id}
                 editedTitle={editedTitle}
@@ -94,9 +95,7 @@ const EditBox = () => {
                 editedImageSrc={editedImageSrc}
                 card={card}
               />
-
               <CancelButton onClick={handleCancel} />
-
               <DeleteButton id={id} />
             </div>
           </div>
