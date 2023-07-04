@@ -1,12 +1,13 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import { Card, Button, Col } from "react-bootstrap";
-
-function PostForm({ onCreatePost, history }) {
+import { useNavigate } from "react-router-dom";
+function PostForm() {
   const [title, setTitle] = useState("");
   const [postContent, setPostContent] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState({});
   const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -14,19 +15,25 @@ function PostForm({ onCreatePost, history }) {
     const postData = {
       title: title,
       content: postContent,
+      image: image,
     };
 
     try {
       const response = await axios.post(
         "http://localhost:3000/posts/send",
-        postData
+        postData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       console.log(response.data);
-      onCreatePost(response.data);
+
       setTitle("");
       setPostContent("");
-      setImage(null);
-      history.push("/home");
+      setImage({});
+      navigate("/home");
     } catch (error) {
       console.error(error);
     }

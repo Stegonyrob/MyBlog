@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Card, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import EditButton from "../components/Buttons/EditButton";
 import DeleteButton from "../components/Buttons/DeleteButton";
 import SaveButton from "../components/Buttons/SaveButton";
 import CancelButton from "../components/Buttons/CancelButton";
@@ -9,15 +8,17 @@ import axios from "axios";
 import { Col } from "react-bootstrap";
 import EditableInput from "../components/EditableInput";
 import { url } from "../utils/url";
+
 const EditBox = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [card, setCard] = useState(null);
+  const [card, setCard] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedContent, setEditedContent] = useState("");
-  const [editedImageSrc, setEditedImageSrc] = useState("");
+  const [editedImageSrc, setEditedImageSrc] = useState({});
   const fileInputRef = useRef(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,53 +26,42 @@ const EditBox = () => {
           `http://localhost:3000/posts/why/${id}`
         );
         setCard(response.data);
-        setEditedTitle(response.data.title);
-        setEditedContent(response.data.content);
-        setEditedImageSrc(response.data.imageSrc);
+        console.log(card);
       } catch (e) {
         console.error(e);
       }
     };
     fetchData();
-  }, [id]);
+  }, []);
 
   if (!card) {
-    return null;
+    navigate("/home");
   }
-
-  const handleSave = async () => {
-    try {
-      const updatedCard = {
-        ...card,
-        title: editedTitle,
-        content: editedContent,
-        imageSrc: editedImageSrc,
-      };
-      await axios.put(`http://localhost:3000/posts/why/${id}`, updatedCard);
-      navigate("/");
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
   const handleCancel = () => {
     setIsOpen(false);
     setEditedTitle(card.title);
     setEditedContent(card.content);
-    setEditedImageSrc(card.imageSrc);
+    setEditedImageSrc(card.image);
   };
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
   const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
+    setEditedImageSrc(event.target.files[0]);
   };
   return (
     <Col>
       <Card bg="dark" className="editbox">
         <h1>Edición de los Post</h1>
         <form>
-          <Card.Img variant="top" src={`${url}${card.image}`} />
+          <div className="d-flex">
+            <Card.Img variant="top" src={`${url}${card.image}`} />
+            <div className="mx-3">
+              <h1> {card.title}</h1>
+              <h1> {card.content}</h1>
+            </div>
+          </div>
           <EditableInput
             label="Título"
             value={editedTitle}
@@ -84,7 +74,7 @@ const EditBox = () => {
           />
           <div className="insert">
             <div className="d-flex justify-content-end">
-              <Button type="button" onClick={handleButtonClick}>
+              {/* <Button type="button" onClick={handleButtonClick}>
                 Insertar imagen
               </Button>
               <input
@@ -95,13 +85,14 @@ const EditBox = () => {
                 onChange={handleImageChange}
                 ref={fileInputRef}
                 style={{ display: "none" }}
-              />
+              /> */}
 
               <SaveButton
                 id={id}
                 editedTitle={editedTitle}
                 editedContent={editedContent}
                 editedImageSrc={editedImageSrc}
+                card={card}
               />
 
               <CancelButton onClick={handleCancel} />

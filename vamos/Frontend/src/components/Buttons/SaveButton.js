@@ -1,16 +1,32 @@
 import React from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
-const SaveButton = ({ id, editedTitle, editedContent, editedImageSrc }) => {
+import { useNavigate } from "react-router-dom";
+
+const SaveButton = ({
+  id,
+  editedTitle,
+  editedContent,
+  editedImageSrc,
+  card,
+}) => {
+  const navigate = useNavigate();
   const handleSaveClick = async () => {
     try {
       const updatedCard = {
+        ...card,
         title: editedTitle,
         content: editedContent,
-        imageSrc: editedImageSrc,
+        imageSrc: editedImageSrc || card.image,
       };
-      await axios.put(`http://localhost:3000/posts/why/${id}`, updatedCard);
-      navigate("/");
+      console.log(updatedCard);
+      await axios.put(`http://localhost:3000/posts/why/${id}`, updatedCard, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      alert("Post editado exitosamente");
+      navigate("/home");
     } catch (e) {
       console.error(e);
     }

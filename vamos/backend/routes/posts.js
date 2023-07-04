@@ -30,29 +30,6 @@ router.post("/", upload.single("image"), async (req, res) => {
   }
 });
 
-//POST posts
-router.post("/send", upload.single("image"), async function (req, res) {
-  try {
-    const { title, content } = req.body;
-    const image = req.file ? req.file.filename : null; // Obtener el nombre de archivo guardado por Multer
-    const newPost = await sequelize.query(
-      `INSERT INTO posts (title, content, image) VALUES (?, ?, ?)`,
-      {
-        type: sequelize.QueryTypes.INSERT,
-        replacements: [title, content, image],
-      }
-    );
-    res.status(200).json({
-      title,
-      content,
-      image,
-    });
-  } catch (e) {
-    console.error(e);
-    res.status(400).send({ error: e.message });
-  }
-});
-
 //GET all post
 router.get("/why", async (req, res) => {
   try {
@@ -111,12 +88,35 @@ router.get("/abaut", async (req, res) => {
   }
 });
 
+//POST posts
+router.post("/send", upload.single("image"), async function (req, res) {
+  try {
+    const { title, content } = req.body;
+    const image = req.file ? req.file.filename : null;
+    const newPost = await sequelize.query(
+      `INSERT INTO posts (title, content, image) VALUES (?, ?, ?)`,
+      {
+        type: sequelize.QueryTypes.INSERT,
+        replacements: [title, content, image],
+      }
+    );
+    res.status(200).json({
+      title,
+      content,
+      image,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(400).send({ error: e.message });
+  }
+});
+
 //Put posts for id post
-router.put("/why/:id", async (req, res) => {
+router.put("/why/:id", upload.single("image"), async (req, res) => {
   try {
     const postId = req.params.id;
     const { title, content } = req.body;
-    const image = req.file ? req.file.filename : null;
+    const image = req.file ? req.file.filename : req.body.image;
     const createdAt = new Date().toISOString().slice(0, 19).replace("T", " ");
     const query = `UPDATE posts SET title=?, content=?, image=?, createdAt=? WHERE id=?`;
     const parameters = [title, content, image, createdAt, postId];
