@@ -57,10 +57,14 @@ Button{
  margin-inline: auto;
 }
 
-.cardimage{
- margin: auto;
- padding: 10px;
+.cardimage {
+  margin: auto;
+  padding: 10px;
+  max-width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  border-radius: 10px; 
 }
+
 .postbox{
   padding: 15px;
   margin-top:7%;
@@ -87,16 +91,27 @@ input {
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   justify-content: space-around;
 }
-.editcard {
-  padding: 15px;
-  margin-left: 150%;
-  justify-content: space-around;
-  width: 80%;
-  text-justify: distribute-all-lines;
-  color:whitesmoke;
-  border-radius: var(--bs-card-border-radius);
 
+
+.editcard {
+  margin-bottom: 20px;
+  padding: 18px;
+  padding-top: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  justify-content: center;
+  width: 100%;
+  text-justify: center;
+  color: whitesmoke;
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  align-items: center;
+  margin-left: 25rem;
 }
+
 .postcard{
   padding: 15px;
   margin-left: 55%;
@@ -106,6 +121,9 @@ input {
   color:whitesmoke;
 
 
+}
+.card-img-top{
+  padding: 10px;
 }
 .footer{
   text-justify: auto;
@@ -118,6 +136,7 @@ input {
   bottom: 0;
  
  }
+
 
 .abautcard{
   justify-content: space-around;
@@ -135,11 +154,28 @@ input {
   margin-left: 15%;
   margin-right: 15%;
 }
-.articlecard{
-  margin-top: 45px;
-  margin-inline: 10px;
+
+.card-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 45px; /* Espacio entre las tarjetas */
+  align-items: center !important;
+  text-justify: center!important;
+  margin-inline-start: 15%;
+  margin-top: 5%;
   
 }
+card-footer {
+
+  color: whitesmoke !important;
+ 
+}
+@media (max-width: 768px) {
+  .card-row {
+    justify-content: center; /* Centra las tarjetas en dispositivos pequeños */
+  }
+}
+
 /*PAGINATION*/
 .pagination {
   margin-top: 65px;

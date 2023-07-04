@@ -6,7 +6,7 @@ function PostForm({ onCreatePost, history }) {
   const [title, setTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [image, setImage] = useState(null);
-  const fileInputRef = useRef(null); // Agrega esta línea
+  const fileInputRef = useRef(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Cards from "./Card";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+
 import { useNavigate, useParams } from "react-router-dom";
 import { url } from "../utils/url";
 const Article = () => {
@@ -11,7 +11,7 @@ const Article = () => {
   const [cards, setCards] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const navigate = useNavigate();
-  const pageSize = 4;
+  const pageSize = 3;
   const [Title, setCardsTitle] = useState("");
   const [Content, setCardsContent] = useState("");
   const [Image, setCardsImage] = useState("");
@@ -45,8 +45,8 @@ const Article = () => {
   };
 
   return (
-    <article className="text-center">
-      <div className="card-group articlecard">
+    <article>
+      <div className="card-group card-row">
         {currentCards.map((card, index) => {
           return (
             <Cards

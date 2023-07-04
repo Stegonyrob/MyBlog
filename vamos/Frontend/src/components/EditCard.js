@@ -28,7 +28,7 @@ const EditableCard = () => {
 
   return (
     <Col md={3}>
-      <Card bg="dark" className="editcard">
+      <Card bg="dark" className="editcard cardimage">
         <Card.Img variant="top" src={`${url}${card.image}`} />
         <Card.Body>
           <Card.Title className="cardtext">{card.title}</Card.Title>

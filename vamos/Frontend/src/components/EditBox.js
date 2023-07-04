@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Card } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Card, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import EditButton from "../components/Buttons/EditButton";
 import DeleteButton from "../components/Buttons/DeleteButton";
@@ -17,7 +17,7 @@ const EditBox = () => {
   const [editedTitle, setEditedTitle] = useState("");
   const [editedContent, setEditedContent] = useState("");
   const [editedImageSrc, setEditedImageSrc] = useState("");
-
+  const fileInputRef = useRef(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,7 +60,12 @@ const EditBox = () => {
     setEditedContent(card.content);
     setEditedImageSrc(card.imageSrc);
   };
-
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+  };
   return (
     <Col>
       <Card bg="dark" className="editbox">
@@ -77,22 +82,32 @@ const EditBox = () => {
             value={editedContent}
             onChange={(e) => setEditedContent(e.target.value)}
           />
-          <EditableInput
-            label="URL de la imagen"
-            value={editedImageSrc}
-            onChange={(e) => setEditedImageSrc(e.target.value)}
-          />
-          <div className="d-flex justify-content-end">
-            <SaveButton
-              id={id}
-              editedTitle={editedTitle}
-              editedContent={editedContent}
-              editedImageSrc={editedImageSrc}
-            />
+          <div className="insert">
+            <div className="d-flex justify-content-end">
+              <Button type="button" onClick={handleButtonClick}>
+                Insertar imagen
+              </Button>
+              <input
+                type="file"
+                id="imageInput"
+                name="image"
+                accept="image/*"
+                onChange={handleImageChange}
+                ref={fileInputRef}
+                style={{ display: "none" }}
+              />
 
-            <CancelButton onClick={handleCancel} />
+              <SaveButton
+                id={id}
+                editedTitle={editedTitle}
+                editedContent={editedContent}
+                editedImageSrc={editedImageSrc}
+              />
 
-            <DeleteButton id={id} />
+              <CancelButton onClick={handleCancel} />
+
+              <DeleteButton id={id} />
+            </div>
           </div>
         </form>
       </Card>
